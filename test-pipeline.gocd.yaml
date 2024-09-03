@@ -1,0 +1,30 @@
+format_version: 10
+pipelines:
+  test-pipeline:
+    group: My-Pipelines
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git-337c8e4:
+        git: https://github.com/bilalahmed55/branch-test
+        shallow_clone: false
+        auto_update: true
+        branch: main
+    stages:
+    - Build:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          run-shell-script:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - hello from gocd pipeline
+                command: echo
+                run_if: passed
